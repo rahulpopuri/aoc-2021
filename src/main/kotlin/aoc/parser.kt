@@ -4,44 +4,29 @@ import java.io.File
 import java.io.InputStream
 import java.nio.charset.Charset
 
-
-fun to2dCharArray(inputFile: String): Array<Array<Char>> {
-    return File(ClassLoader.getSystemResource(inputFile).file).readLines(Charset.defaultCharset())
-        .map { it.toCharArray().toTypedArray() }
-        .toTypedArray()
-}
-
-fun to2dCharList(inputFile: String): List<List<Char>> {
-    return File(ClassLoader.getSystemResource(inputFile).file).readLines(Charset.defaultCharset())
-        .map { line ->
-            line.toCharArray().toList()
-        }
-}
-
-fun toListOfString(inputFile: String): List<String> {
-    return File(ClassLoader.getSystemResource(inputFile).file).readLines(Charset.defaultCharset())
-}
-
-fun toListOfLong(inputFile: String): List<Long> {
-    val inputStream: InputStream = File(ClassLoader.getSystemResource(inputFile).file).inputStream()
-    val result = mutableListOf<Long>()
-    inputStream.bufferedReader().forEachLine { line ->
-        run {
-            result.add(line.toLong())
-        }
-    }
-    return result
+fun String.toStringList(): List<String> {
+    return File(ClassLoader.getSystemResource(this).file).readLines(Charset.defaultCharset())
 }
 
 fun String.toIntList(): List<Int> {
-    return File(ClassLoader.getSystemResource(this).file).readLines().map { it.toInt() }
+    return this.toStringList().map { it.toInt() }
 }
 
-fun toIntArray(inputFile: String): IntArray {
-    val inputStream: InputStream = File(ClassLoader.getSystemResource(inputFile).file).inputStream()
-    val lineList = mutableListOf<Int>()
-    inputStream.bufferedReader().forEachLine { line -> lineList.add(line.toInt()) }
-    return lineList.toIntArray()
+fun String.toLongList(): List<Long> {
+    return this.toStringList().map { it.toLong() }
+}
+
+fun String.to2dCharList(): List<List<Char>> {
+    return this.toStringList().map { it.toCharArray().toList() }
+}
+
+fun String.toIntArray() : IntArray {
+    return this.toIntList().toIntArray()
+}
+
+fun String.to2dCharArray(): Array<Array<Char>> {
+    return this.toStringList().map { it.toCharArray().toTypedArray() }
+        .toTypedArray()
 }
 
 fun Array<Array<Int>>.print() {
