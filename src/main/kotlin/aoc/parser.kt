@@ -33,6 +33,10 @@ fun toListOfLong(inputFile: String): List<Long> {
     return result
 }
 
+fun String.toIntList(): List<Int> {
+    return File(ClassLoader.getSystemResource(this).file).readLines().map { it.toInt() }
+}
+
 fun toIntArray(inputFile: String): IntArray {
     val inputStream: InputStream = File(ClassLoader.getSystemResource(inputFile).file).inputStream()
     val lineList = mutableListOf<Int>()
