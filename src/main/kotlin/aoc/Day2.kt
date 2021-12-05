@@ -38,7 +38,7 @@ fun part2(input: List<Instruction>): Int {
 
 data class Instruction(val command: String, val value: Int)
 
-fun loadInput(): List<Instruction> {
+private fun loadInput(): List<Instruction> {
     return "input_day2.txt".toStringList()
         .map { val split = it.split(" "); Instruction(split[0], split[1].toInt()) }
         .toList()

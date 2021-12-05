@@ -1,7 +1,6 @@
 package aoc
 
 import java.io.File
-import java.io.InputStream
 import java.nio.charset.Charset
 
 fun String.toStringList(): List<String> {
@@ -24,13 +23,32 @@ fun String.to2dCharList(): List<List<Char>> {
     return this.toStringList().map { it.toCharArray().toList() }
 }
 
-fun String.toIntArray() : IntArray {
+fun String.toIntArray(): IntArray {
     return this.toIntList().toIntArray()
 }
 
 fun String.to2dCharArray(): Array<Array<Char>> {
     return this.toStringList().map { it.toCharArray().toTypedArray() }
         .toTypedArray()
+}
+
+inline fun <reified INNER> array2d(
+    sizeOuter: Int,
+    sizeInner: Int,
+    noinline innerInit: (Int) -> INNER
+): Array<Array<INNER>> = Array(sizeOuter) { Array(sizeInner, innerInit) }
+
+fun array2dOfInt(sizeOuter: Int, sizeInner: Int): Array<IntArray> = Array(sizeOuter) { IntArray(sizeInner) }
+fun array2dOfLong(sizeOuter: Int, sizeInner: Int): Array<LongArray> = Array(sizeOuter) { LongArray(sizeInner) }
+fun array2dOfByte(sizeOuter: Int, sizeInner: Int): Array<ByteArray> = Array(sizeOuter) { ByteArray(sizeInner) }
+fun array2dOfChar(sizeOuter: Int, sizeInner: Int): Array<CharArray> = Array(sizeOuter) { CharArray(sizeInner) }
+fun array2dOfBoolean(sizeOuter: Int, sizeInner: Int): Array<BooleanArray> = Array(sizeOuter) { BooleanArray(sizeInner) }
+
+fun Array<IntArray>.print() {
+    for (i in this.indices) {
+        println(this[i].contentToString())
+    }
+    println()
 }
 
 fun Array<Array<Int>>.print() {
@@ -68,41 +86,4 @@ fun Array<Array<Char>>.rotate(): Array<Array<Char>> {
         }
     }
     return result
-}
-
-fun MutableMap<Int, Set<String>>.prune() {
-    while (this.values.any { it.size > 1 }) {
-        for (allergen in this.entries) {
-            if (allergen.value.size == 1) {
-                // remove from other entries
-                this.entries
-                    .filter { it.key != allergen.key }
-                    .filter { it.value.contains(allergen.value.elementAt(0)) }
-                    .forEach { e ->
-                        val set = HashSet(e.value)
-                        set.remove(allergen.value.elementAt(0))
-                        this[e.key] = set
-                    }
-            }
-        }
-    }
-}
-
-// Figure out how to combine with above
-fun MutableMap<String, Set<String>>.prune2() {
-    while (this.values.any { it.size > 1 }) {
-        for (allergen in this.entries) {
-            if (allergen.value.size == 1) {
-                // remove from other entries
-                this.entries
-                    .filter { it.key != allergen.key }
-                    .filter { it.value.contains(allergen.value.elementAt(0)) }
-                    .forEach { e ->
-                        val set = HashSet(e.value)
-                        set.remove(allergen.value.elementAt(0))
-                        this[e.key] = set
-                    }
-            }
-        }
-    }
 }

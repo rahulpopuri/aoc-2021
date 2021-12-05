@@ -56,7 +56,7 @@ fun part2(input: Array<Array<Char>>) {
     println("Part 2: " + o2Rating * co2Scrubber)
 }
 
-data class Counts(val input: Array<Array<Char>>) {
+private data class Counts(val input: Array<Array<Char>>) {
     private var zeros = 0
     private var ones = 0
     private var zeroArray = mutableListOf<Array<Char>>()
