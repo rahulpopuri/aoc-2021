@@ -8,6 +8,10 @@ fun String.toStringList(): List<String> {
     return File(ClassLoader.getSystemResource(this).file).readLines(Charset.defaultCharset())
 }
 
+fun String.toText(): String {
+    return File(ClassLoader.getSystemResource(this).file).readText(Charset.defaultCharset())
+}
+
 fun String.toIntList(): List<Int> {
     return this.toStringList().map { it.toInt() }
 }
