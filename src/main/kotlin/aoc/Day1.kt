@@ -1,6 +1,4 @@
-package aoc.day1
-
-import aoc.toIntList
+package aoc
 
 fun main() {
     val input = "input_day1.txt".toIntList()
