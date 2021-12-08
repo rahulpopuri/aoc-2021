@@ -3,6 +3,31 @@ package aoc
 import java.io.File
 import java.nio.charset.Charset
 
+fun String.containsAll(elements: Collection<Char>): Boolean {
+    if (elements.isEmpty()) {
+        return false
+    }
+    for (c in elements) {
+        if (!this.contains(c)) {
+            return false
+        }
+    }
+    return true
+}
+
+fun String.containsOnly(elements: Collection<Char>): Boolean {
+    return this.containsAll(elements)
+            && this.subtract(elements.toString()).isEmpty()
+}
+
+fun String.subtract(input: String): String {
+    var result = this
+    for (c in input) {
+        result = result.replace(c.toString(), "")
+    }
+    return result
+}
+
 fun String.toStringList(): List<String> {
     return File(ClassLoader.getSystemResource(this).file).readLines(Charset.defaultCharset())
 }
