@@ -57,6 +57,11 @@ fun String.to2dCharArray(): Array<Array<Char>> {
         .toTypedArray()
 }
 
+fun String.to2dIntArray(): Array<Array<Int>> {
+    return this.toStringList().map { it.toIntArray().toTypedArray() }
+        .toTypedArray()
+}
+
 inline fun <reified INNER> array2d(
     sizeOuter: Int,
     sizeInner: Int,
